@@ -1,0 +1,18 @@
+﻿<Page x:Class="WpfApp1.Pages.EditRecipe"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="EditRecipe">
+    <StackPanel Margin="10">
+        <TextBox x:Name="EditRecipeName" Width="300" Margin="0,5" ToolTip="Введите название рецепта"/>
+        <TextBox x:Name="EditDescription" Width="300" Margin="0,5" ToolTip="Введите описание рецепта"/>
+        <ComboBox x:Name="EditAuthor" Width="300" Margin="0,5" ToolTip="Выберите автора"/>
+        <ComboBox x:Name="EditCategory" Width="300" Margin="0,5" ToolTip="Выберите категорию"/>
+        <TextBox x:Name="EditCookingTime" Width="300" Margin="0,5" ToolTip="Введите время приготовления"/>
+        <Button Content="Сохранить изменения" Width="120" Height="30" Margin="0,5" Click="SaveChanges_Click"/>
+    </StackPanel>
+</Page>
