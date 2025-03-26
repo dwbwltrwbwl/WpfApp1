@@ -23,7 +23,14 @@ namespace WpfApp1.ApplicationData
             this.RecipeTags = new HashSet<RecipeTags>();
             this.Reviews = new HashSet<Reviews>();
         }
-    
+        public string CurrentPhoto { 
+            get {
+                if (String.IsNullOrEmpty(ImageE) || String.IsNullOrWhiteSpace(ImageE))
+                    return @"\Images\nofoto.jpg";
+                else
+                    return @"\Images\" + ImageE;
+            } 
+        }
         public int RecipeID { get; set; }
         public string RecipeName { get; set; }
         public string DescriptionN { get; set; }

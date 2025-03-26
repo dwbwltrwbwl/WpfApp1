@@ -13,22 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WpfApp1
+namespace WpfApp1.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для AddRecipe.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AddRecipe : Page
     {
-        public MainWindow()
+        public AddRecipe()
         {
             InitializeComponent();
-
-            ApplicationData.AppConnect.model01 = new ApplicationData.RecipeBook2Entities();
-
-            ApplicationData.AppFrame.frmMain2 = frameMain;
-            frameMain.Navigate(new Pages.DataOutput());
-
         }
     }
 }

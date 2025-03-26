@@ -77,7 +77,12 @@ namespace WpfApp1.Pages
             var filteredRecipes = allRecipes.Where(recipe => recipe.RecipeName.ToLower().Contains(searchText)).ToList();
             listProducts.ItemsSource = filteredRecipes;
         }
-
+        private void TextSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string searchText = TextSearch.Text.ToLower();
+            var filteredRecipes = allRecipes.Where(recipe => recipe.RecipeName.ToLower().Contains(searchText)).ToList();
+            listProducts.ItemsSource = filteredRecipes;
+        }
         private void ResetSearch_Click(object sender, RoutedEventArgs e)
         {
             TextSearch.Text = string.Empty;
@@ -91,6 +96,10 @@ namespace WpfApp1.Pages
                 EditRecipe editPage = new EditRecipe(selectedRecipe);
                 NavigationService.Navigate(editPage);
             }
+        }
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

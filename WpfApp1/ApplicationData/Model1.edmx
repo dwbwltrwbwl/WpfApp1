@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище RecipeBookModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище RecipeBook2Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Authors">
           <Key>
             <PropertyRef Name="AuthorID" />
@@ -86,16 +86,6 @@
           <Property Name="RecipeID" Type="int" />
           <Property Name="ReviewText" Type="nvarchar" MaxLength="50" />
           <Property Name="Rating" Type="int" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Tags">
           <Key>
@@ -212,7 +202,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Хранилище RecipeBookModelContainer">
+        <EntityContainer Name="Хранилище RecipeBook2ModelContainer">
           <EntitySet Name="Authors" EntityType="Self.Authors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CookingSteps" EntityType="Self.CookingSteps" Schema="dbo" store:Type="Tables" />
@@ -222,7 +212,6 @@
           <EntitySet Name="Recipes" EntityType="Self.Recipes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RecipeTags" EntityType="Self.RecipeTags" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_CookingSteps_Recipes" Association="Self.FK_CookingSteps_Recipes">
             <End Role="Recipes" EntitySet="Recipes" />
@@ -264,7 +253,7 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="RecipeBookModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="RecipeBook2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Authors">
           <Key>
             <PropertyRef Name="AuthorID" />
@@ -273,11 +262,11 @@
           <Property Name="AuthorName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Recipes" Relationship="Self.FK_Recipes_Authors" FromRole="Authors" ToRole="Recipes" />
           <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
           <Property Name="Experience" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Recipes" Relationship="Self.FK_Recipes_Authors" FromRole="Authors" ToRole="Recipes" />
         </EntityType>
         <EntityType Name="Categories">
           <Key>
@@ -363,16 +352,6 @@
           <Property Name="ReviewText" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Rating" Type="Int32" />
           <NavigationProperty Name="Recipes" Relationship="Self.FK_Reviews_Recipes" FromRole="Reviews" ToRole="Recipes" />
-        </EntityType>
-        <EntityType Name="Ы">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Tags">
           <Key>
@@ -490,7 +469,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="RecipeBookEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="RecipeBook2Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Authors" EntityType="Self.Authors" />
           <EntitySet Name="Categories" EntityType="Self.Categories" />
           <EntitySet Name="CookingSteps" EntityType="Self.CookingSteps" />
@@ -500,7 +479,6 @@
           <EntitySet Name="Recipes" EntityType="Self.Recipes" />
           <EntitySet Name="RecipeTags" EntityType="Self.RecipeTags" />
           <EntitySet Name="Reviews" EntityType="Self.Reviews" />
-          <EntitySet Name="sysdiagrams" EntityType="RecipeBookModel.Ы" />
           <EntitySet Name="Tags" EntityType="Self.Tags" />
           <AssociationSet Name="FK_Recipes_Authors" Association="Self.FK_Recipes_Authors">
             <End Role="Authors" EntitySet="Authors" />
@@ -544,23 +522,23 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище RecipeBookModelContainer" CdmEntityContainer="RecipeBookEntities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище RecipeBook2ModelContainer" CdmEntityContainer="RecipeBook2Entities">
           <EntitySetMapping Name="Authors">
-            <EntityTypeMapping TypeName="RecipeBookModel.Authors">
+            <EntityTypeMapping TypeName="RecipeBook2Model.Authors">
               <MappingFragment StoreEntitySet="Authors">
-                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Experience" ColumnName="Experience" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
                 <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
                 <ScalarProperty Name="AuthorName" ColumnName="AuthorName" />
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Experience" ColumnName="Experience" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="RecipeBookModel.Categories">
+            <EntityTypeMapping TypeName="RecipeBook2Model.Categories">
               <MappingFragment StoreEntitySet="Categories">
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
@@ -568,7 +546,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CookingSteps">
-            <EntityTypeMapping TypeName="RecipeBookModel.CookingSteps">
+            <EntityTypeMapping TypeName="RecipeBook2Model.CookingSteps">
               <MappingFragment StoreEntitySet="CookingSteps">
                 <ScalarProperty Name="StepID" ColumnName="StepID" />
                 <ScalarProperty Name="RecipeID" ColumnName="RecipeID" />
@@ -578,7 +556,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Ingredients">
-            <EntityTypeMapping TypeName="RecipeBookModel.Ingredients">
+            <EntityTypeMapping TypeName="RecipeBook2Model.Ingredients">
               <MappingFragment StoreEntitySet="Ingredients">
                 <ScalarProperty Name="IngredientID" ColumnName="IngredientID" />
                 <ScalarProperty Name="IngredientName" ColumnName="IngredientName" />
@@ -586,7 +564,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RecipeImages">
-            <EntityTypeMapping TypeName="RecipeBookModel.RecipeImages">
+            <EntityTypeMapping TypeName="RecipeBook2Model.RecipeImages">
               <MappingFragment StoreEntitySet="RecipeImages">
                 <ScalarProperty Name="ImageID" ColumnName="ImageID" />
                 <ScalarProperty Name="RecipeID" ColumnName="RecipeID" />
@@ -595,7 +573,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RecipeIngredients">
-            <EntityTypeMapping TypeName="RecipeBookModel.RecipeIngredients">
+            <EntityTypeMapping TypeName="RecipeBook2Model.RecipeIngredients">
               <MappingFragment StoreEntitySet="RecipeIngredients">
                 <ScalarProperty Name="RecipeIngredientID" ColumnName="RecipeIngredientID" />
                 <ScalarProperty Name="RecipeID" ColumnName="RecipeID" />
@@ -605,7 +583,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Recipes">
-            <EntityTypeMapping TypeName="RecipeBookModel.Recipes">
+            <EntityTypeMapping TypeName="RecipeBook2Model.Recipes">
               <MappingFragment StoreEntitySet="Recipes">
                 <ScalarProperty Name="RecipeID" ColumnName="RecipeID" />
                 <ScalarProperty Name="RecipeName" ColumnName="RecipeName" />
@@ -618,7 +596,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RecipeTags">
-            <EntityTypeMapping TypeName="RecipeBookModel.RecipeTags">
+            <EntityTypeMapping TypeName="RecipeBook2Model.RecipeTags">
               <MappingFragment StoreEntitySet="RecipeTags">
                 <ScalarProperty Name="RecipeTagID" ColumnName="RecipeTagID" />
                 <ScalarProperty Name="RecipeID" ColumnName="RecipeID" />
@@ -627,7 +605,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Reviews">
-            <EntityTypeMapping TypeName="RecipeBookModel.Reviews">
+            <EntityTypeMapping TypeName="RecipeBook2Model.Reviews">
               <MappingFragment StoreEntitySet="Reviews">
                 <ScalarProperty Name="ReviewID" ColumnName="ReviewID" />
                 <ScalarProperty Name="RecipeID" ColumnName="RecipeID" />
@@ -636,19 +614,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="RecipeBookModel.Ы">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Tags">
-            <EntityTypeMapping TypeName="RecipeBookModel.Tags">
+            <EntityTypeMapping TypeName="RecipeBook2Model.Tags">
               <MappingFragment StoreEntitySet="Tags">
                 <ScalarProperty Name="TagID" ColumnName="TagID" />
                 <ScalarProperty Name="TagName" ColumnName="TagName" />
