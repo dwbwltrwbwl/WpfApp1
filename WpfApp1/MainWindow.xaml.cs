@@ -24,7 +24,7 @@ namespace WpfApp1
         {
             InitializeComponent();
 
-            ApplicationData.AppConnect.model01 = new ApplicationData.RecipeBook2Entities();
+            ApplicationData.AppConnect.model01 = new ApplicationData.RecipeBookEntities1();
 
             ApplicationData.AppFrame.frmMain2 = frameMain;
             frameMain.Navigate(new Pages.DataOutput());

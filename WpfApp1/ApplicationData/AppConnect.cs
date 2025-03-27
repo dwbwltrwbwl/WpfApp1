@@ -8,6 +8,6 @@ namespace WpfApp1.ApplicationData
 {
     internal class AppConnect
     {
-        public static RecipeBook2Entities model01;
+        public static RecipeBookEntities1 model01;
     }
 }

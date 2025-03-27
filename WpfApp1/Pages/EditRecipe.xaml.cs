@@ -69,5 +69,16 @@ namespace WpfApp1.Pages
             AppConnect.model01.SaveChanges();
             NavigationService.GoBack();
         }
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            if (NavigationService != null)
+            {
+                NavigationService.Navigate(new DataOutput());
+            }
+            else
+            {
+                MessageBox.Show("Не удалось выполнить навигацию. Попробуйте еще раз.");
+            }
+        }
     }
 }
