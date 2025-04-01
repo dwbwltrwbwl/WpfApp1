@@ -23,7 +23,7 @@ namespace WpfApp1.ApplicationData
             this.RecipeTags = new HashSet<RecipeTags>();
             this.Reviews = new HashSet<Reviews>();
         }
-        public string CurrentPhoto
+        public string CurrentPhotoo
         {
             get
             {
