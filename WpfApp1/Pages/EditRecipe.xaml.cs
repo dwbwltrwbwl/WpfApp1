@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +14,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using WpfApp1.ApplicationData;
 
 namespace WpfApp1.Pages
@@ -22,20 +24,30 @@ namespace WpfApp1.Pages
     public partial class EditRecipe : Page
     {
         private Recipes recipe;
+
         public EditRecipe(Recipes recipe)
         {
             InitializeComponent();
-            this.recipe = recipe;
+            this.recipe = recipe ?? throw new ArgumentNullException(nameof(recipe));
 
             EditRecipeName.Text = recipe.RecipeName;
             EditDescription.Text = recipe.DescriptionN;
-            EditCookingTime.Text = recipe.CookingTime.ToString();
+            EditCookingTime.Text = recipe.CookingTime ?? "0";
 
             LoadAuthors();
             LoadCategories();
 
             EditAuthor.SelectedItem = recipe.Authors;
             EditCategory.SelectedItem = recipe.Categories;
+        }
+
+        public EditRecipe()
+        {
+            InitializeComponent();
+            recipe = new Recipes();
+
+            LoadAuthors();
+            LoadCategories();
         }
 
         private void LoadAuthors()
@@ -59,16 +71,27 @@ namespace WpfApp1.Pages
             recipe.Authors = (Authors)EditAuthor.SelectedItem;
             recipe.Categories = (Categories)EditCategory.SelectedItem;
 
-            recipe.CookingTime = EditCookingTime.Text;
-            if (string.IsNullOrWhiteSpace(recipe.CookingTime))
+            if (!int.TryParse(EditCookingTime.Text, out int cookingTime) || cookingTime <= 0)
             {
                 MessageBox.Show("Пожалуйста, введите корректное время приготовления.");
                 return;
             }
 
+            recipe.CookingTime = cookingTime.ToString();
+
+            if (recipe.RecipeID == 0)
+            {
+                AppConnect.model01.Recipes.Add(recipe);
+            }
+            else
+            {
+                AppConnect.model01.Entry(recipe).State = EntityState.Modified;
+            }
+
             AppConnect.model01.SaveChanges();
             NavigationService.GoBack();
         }
+
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             if (NavigationService != null)
@@ -78,6 +101,32 @@ namespace WpfApp1.Pages
             else
             {
                 MessageBox.Show("Не удалось выполнить навигацию. Попробуйте еще раз.");
+            }
+        }
+        private void LoadImageButton(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var dialog = new OpenFileDialog();
+                dialog.InitialDirectory = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\Images"));
+
+                dialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif|All Files|*.*";
+                dialog.Title = "Выберите изображение";
+
+                if (dialog.ShowDialog() == true)
+                {
+                    string photoName = System.IO.Path.GetFileName(dialog.FileName);
+                    recipe.ImageE = photoName;
+                    MessageBox.Show("Изображение загружено: " + photoName, "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Изображение не выбрано.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при загрузке изображения: " + ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

@@ -10,7 +10,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Frame x:Name="frameMain" Content="Frame" Foreground="White"/>
+        <Frame x:Name="frameMain" Content="Frame" Foreground="White" NavigationUIVisibility="Hidden"/>
 
     </Grid>
 </Window>

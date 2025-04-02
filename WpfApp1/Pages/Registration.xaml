@@ -28,6 +28,5 @@
         <Button x:Name="ButtonExit" Content="Назад" HorizontalAlignment="Left" Margin="10,398,0,0" VerticalAlignment="Top" Width="204" Click="ButtonExit_Click"/>
         <TextBlock Margin="52,20,0,0" Text="Регистрация" VerticalAlignment="Top" Width="120" Foreground="#FF0027FF" FontSize="18" HorizontalAlignment="Left" TextWrapping="Wrap" TextAlignment="Center" Height="24" FontWeight="Bold"/>
         <TextBox x:Name="TBPassword" HorizontalAlignment="Left" Margin="10,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="204"/>
-
     </Grid>
 </Page>

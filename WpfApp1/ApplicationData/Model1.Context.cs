@@ -13,10 +13,10 @@ namespace WpfApp1.ApplicationData
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class RecipeBookEntities1 : DbContext
+    public partial class RecipeBookEntities2 : DbContext
     {
-        public RecipeBookEntities1()
-            : base("name=RecipeBookEntities1")
+        public RecipeBookEntities2()
+            : base("name=RecipeBookEntities2")
         {
         }
     
@@ -34,7 +34,6 @@ namespace WpfApp1.ApplicationData
         public virtual DbSet<Recipes> Recipes { get; set; }
         public virtual DbSet<RecipeTags> RecipeTags { get; set; }
         public virtual DbSet<Reviews> Reviews { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Tags> Tags { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -27,6 +28,8 @@ namespace WpfApp1.Pages
         public DataOutput()
         {
             InitializeComponent();
+            ComboFilter.SelectedIndex = 0;
+            ComboSort.SelectedIndex = 0;
 
             allRecipes = AppConnect.model01.Recipes.ToList();
             listProducts.ItemsSource = allRecipes;
@@ -77,18 +80,13 @@ namespace WpfApp1.Pages
                     case "Сортировать по времени приготовления":
                         sortedRecipes = allRecipes.OrderBy(recipe => recipe.CookingTime).ToList();
                         break;
+                    case "Не сортировать":
                     default:
                         sortedRecipes = allRecipes;
                         break;
                 }
                 listProducts.ItemsSource = sortedRecipes;
             }
-        }
-
-        private void btnView_Click(object sender, RoutedEventArgs e)
-        {
-
-
         }
 
         private void ApplySearch_Click(object sender, RoutedEventArgs e)
@@ -123,7 +121,8 @@ namespace WpfApp1.Pages
         }
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            Recipes newRecipe = new Recipes();
+            NavigationService.Navigate(new EditRecipe(newRecipe));
         }
         private void UpdateFoundCount(int count)
         {

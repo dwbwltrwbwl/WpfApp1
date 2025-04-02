@@ -7,13 +7,13 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="EditRecipe">
-    <StackPanel Margin="10">
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid Margin="0,5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock TextWrapping="Wrap" Text="Изменить название:" FontWeight="Bold" FontSize="16" Foreground="#FF0027FF" Grid.Row="0" HorizontalAlignment="Left" Margin="240,0,0,0"/>
+            <TextBlock TextWrapping="Wrap" Text="Название:" FontWeight="Bold" FontSize="16" Foreground="#FF0027FF" Grid.Row="0" HorizontalAlignment="Left"/>
             <TextBox x:Name="EditRecipeName" Width="300" Margin="0,5" ToolTip="Введите название рецепта" Grid.Row="1" HorizontalAlignment="Center" FontSize="14"/>
         </Grid>
 
@@ -22,7 +22,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock TextWrapping="Wrap" Text="Изменить описание:" FontWeight="Bold" FontSize="16" Foreground="#FF0027FF" Grid.Row="0" HorizontalAlignment="Left" Margin="240,-7,0,6"/>
+            <TextBlock TextWrapping="Wrap" Text="Описание:" FontWeight="Bold" FontSize="16" Foreground="#FF0027FF" Grid.Row="0" HorizontalAlignment="Left"/>
             <TextBox x:Name="EditDescription" Width="300" Margin="0,5" ToolTip="Введите описание рецепта" Grid.Row="1" HorizontalAlignment="Center" FontSize="14"/>
         </Grid>
 
@@ -31,7 +31,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock TextWrapping="Wrap" Text="Изменить автора:" FontWeight="Bold" FontSize="16" Foreground="#FF0027FF" Grid.Row="0" HorizontalAlignment="Left" Margin="240,-7,0,6"/>
+            <TextBlock TextWrapping="Wrap" Text="Автор:" FontWeight="Bold" FontSize="16" Foreground="#FF0027FF" Grid.Row="0" HorizontalAlignment="Left"/>
             <ComboBox x:Name="EditAuthor" Width="300" Margin="0,5" ToolTip="Выберите автора" Grid.Row="1" HorizontalAlignment="Center" FontSize="14"/>
         </Grid>
 
@@ -40,7 +40,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock TextWrapping="Wrap" Text="Изменить категорию:" FontWeight="Bold" FontSize="16" Foreground="#FF0027FF" Grid.Row="0" HorizontalAlignment="Left" Margin="240,-7,0,6"/>
+            <TextBlock TextWrapping="Wrap" Text="Категория:" FontWeight="Bold" FontSize="16" Foreground="#FF0027FF" Grid.Row="0" HorizontalAlignment="Left"/>
             <ComboBox x:Name="EditCategory" Width="300" Margin="0,5" ToolTip="Выберите категорию" Grid.Row="1" HorizontalAlignment="Center" FontSize="14"/>
         </Grid>
 
@@ -49,11 +49,11 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock TextWrapping="Wrap" Text="Изменить время приготовления:" FontWeight="Bold" FontSize="16" Foreground="#FF0027FF" Grid.Row="0" Margin="240,-7,0,6"/>
+            <TextBlock TextWrapping="Wrap" Text="Время приготовления:" FontWeight="Bold" FontSize="16" Foreground="#FF0027FF" Grid.Row="0" HorizontalAlignment="Left"/>
             <TextBox x:Name="EditCookingTime" Width="300" Margin="0,5" ToolTip="Введите время приготовления" Grid.Row="1" HorizontalAlignment="Center" FontSize="14"/>
         </Grid>
-
-        <Button Content="Сохранить изменения" Width="150" Height="30" Margin="0,5" Click="SaveChanges_Click" HorizontalAlignment="Center" FontSize="14"/>
+        <Button Content="Картинка" Width="300" Margin="0,5" Click="LoadImageButton" HorizontalAlignment="Center" FontSize="16" Foreground="#FF0027FF" FontWeight="Bold"/>
+        <Button Content="Сохранить" Width="150" Height="30" Margin="0,5" Click="SaveChanges_Click" HorizontalAlignment="Center" FontSize="14"/>
         <Button Content="Выход" Width="150" Height="30" Click="Exit_Click" FontSize="14"/>
     </StackPanel>
 </Page>
