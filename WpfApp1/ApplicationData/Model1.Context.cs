@@ -13,10 +13,10 @@ namespace WpfApp1.ApplicationData
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class RecipeBookEntities2 : DbContext
+    public partial class RecipeBookEntities3 : DbContext
     {
-        public RecipeBookEntities2()
-            : base("name=RecipeBookEntities2")
+        public RecipeBookEntities3()
+            : base("name=RecipeBookEntities3")
         {
         }
     

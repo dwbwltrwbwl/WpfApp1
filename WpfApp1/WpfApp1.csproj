@@ -201,6 +201,8 @@
     <Resource Include="Images\pasta.jpg" />
     <Resource Include="Images\pie.jpg" />
     <Resource Include="Images\soup.jpg" />
+    <Resource Include="Images\lemonade2.jpg" />
+    <Resource Include="Images\dumplings.jpg" />
     <Content Include="ApplicationData\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -211,8 +213,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Resource Include="Images\lemonade2.jpg" />
-    <Resource Include="Images\dumplings.jpg" />
+    <Resource Include="Images\blini.jpg" />
     <Content Include="Images\tea.jpg" />
   </ItemGroup>
   <ItemGroup />

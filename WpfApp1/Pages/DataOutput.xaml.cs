@@ -39,7 +39,6 @@ namespace WpfApp1.Pages
             {
                 ComboFilter.Items.Add(new ComboBoxItem { Content = category.CategoryName });
             }
-
             UpdateFoundCount(allRecipes.Count);
         }
         private void listProducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -51,94 +50,87 @@ namespace WpfApp1.Pages
         }
         private void ComboFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string selectedCategory = (ComboFilter.SelectedItem as ComboBoxItem)?.Content.ToString();
-
-            if (selectedCategory == "Все категории")
-            {
-                listProducts.ItemsSource = allRecipes;
-            }
-            else
-            {
-                var filteredRecipes = allRecipes.Where(recipe => recipe.Categories.CategoryName == selectedCategory).ToList();
-                listProducts.ItemsSource = filteredRecipes;
-            }
-
-            UpdateFoundCount(listProducts.Items.Count);
+            UpdateRecipeList();
         }
-
         private void ComboSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ComboSort.SelectedItem is ComboBoxItem selectedItem)
-            {
-                string sortBy = selectedItem.Content.ToString();
-                List<Recipes> sortedRecipes;
-                switch (sortBy)
-                {
-                    case "Сортировать по имени":
-                        sortedRecipes = allRecipes.OrderBy(recipe => recipe.RecipeName).ToList();
-                        break;
-                    case "Сортировать по времени приготовления":
-                        sortedRecipes = allRecipes.OrderBy(recipe => recipe.CookingTime).ToList();
-                        break;
-                    case "Не сортировать":
-                    default:
-                        sortedRecipes = allRecipes;
-                        break;
-                }
-                listProducts.ItemsSource = sortedRecipes;
-            }
+            UpdateRecipeList();
         }
-
         private void ApplySearch_Click(object sender, RoutedEventArgs e)
         {
-            string searchText = TextSearch.Text.ToLower();
-            var filteredRecipes = allRecipes.Where(recipe => recipe.RecipeName.ToLower().Contains(searchText)).ToList();
-            listProducts.ItemsSource = filteredRecipes;
-            UpdateFilteredRecipes();
+            UpdateRecipeList();
         }
         private void TextSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string searchText = TextSearch.Text.ToLower();
-            var filteredRecipes = allRecipes.Where(recipe => recipe.RecipeName.ToLower().Contains(searchText)).ToList();
-            listProducts.ItemsSource = filteredRecipes;
-            UpdateFilteredRecipes();
+            UpdateRecipeList();
         }
         private void ResetSearch_Click(object sender, RoutedEventArgs e)
         {
             TextSearch.Text = string.Empty;
             ComboFilter.SelectedIndex = 0;
-            listProducts.ItemsSource = allRecipes;
-            UpdateFoundCount(allRecipes.Count);
+            UpdateRecipeList();
         }
-
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
             if (listProducts.SelectedItem is Recipes selectedRecipe)
             {
                 EditRecipe editPage = new EditRecipe(selectedRecipe);
+                editPage.RecipeUpdated += UpdateRecipeList;
                 NavigationService.Navigate(editPage);
             }
         }
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             Recipes newRecipe = new Recipes();
-            NavigationService.Navigate(new EditRecipe(newRecipe));
+            EditRecipe editPage = new EditRecipe(newRecipe);
+            editPage.RecipeUpdated += UpdateRecipeList;
+            NavigationService.Navigate(editPage);
+        }
+        private void UpdateRecipeList()
+        {
+            string searchText = TextSearch.Text.ToLower();
+            string selectedCategory = (ComboFilter.SelectedItem as ComboBoxItem)?.Content.ToString();
+            if (allRecipes == null)
+            {
+                UpdateFoundCount(0);
+                return;
+            }
+            var filteredRecipes = allRecipes.Where(recipe =>
+                recipe != null &&
+                recipe.RecipeName != null &&
+                recipe.RecipeName.ToLower().Contains(searchText) &&
+                (selectedCategory == "Все категории" ||
+                 (recipe.Categories != null && recipe.Categories.CategoryName == selectedCategory)))
+                .ToList();
+
+            List<Recipes> sortedRecipes;
+            if (ComboSort.SelectedItem is ComboBoxItem selectedItem)
+            {
+                string sortBy = selectedItem.Content.ToString();
+                switch (sortBy)
+                {
+                    case "Сортировать по имени":
+                        sortedRecipes = filteredRecipes.OrderBy(recipe => recipe.RecipeName).ToList();
+                        break;
+                    case "Сортировать по времени приготовления":
+                        sortedRecipes = filteredRecipes.OrderBy(recipe => recipe.CookingTime).ToList();
+                        break;
+                    case "Не сортировать":
+                    default:
+                        sortedRecipes = filteredRecipes;
+                        break;
+                }
+            }
+            else
+            {
+                sortedRecipes = filteredRecipes;
+            }
+            listProducts.ItemsSource = sortedRecipes;
+            UpdateFoundCount(sortedRecipes.Count);
         }
         private void UpdateFoundCount(int count)
         {
             TextFoundCount.Text = $"Найдено: {count}";
-        }
-        private void UpdateFilteredRecipes()
-        {
-            string searchText = TextSearch.Text.ToLower();
-            string selectedCategory = (ComboFilter.SelectedItem as ComboBoxItem)?.Content.ToString();
-
-            var filteredRecipes = allRecipes.Where(recipe =>
-                recipe.RecipeName.ToLower().Contains(searchText) &&
-                (selectedCategory == "Все категории" || recipe.Categories.CategoryName == selectedCategory)).ToList();
-
-            listProducts.ItemsSource = filteredRecipes;
-            UpdateFoundCount(filteredRecipes.Count);
         }
     }
 }

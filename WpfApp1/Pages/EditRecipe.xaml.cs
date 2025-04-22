@@ -24,7 +24,7 @@ namespace WpfApp1.Pages
     public partial class EditRecipe : Page
     {
         private Recipes recipe;
-
+        public event Action RecipeUpdated;
         public EditRecipe(Recipes recipe)
         {
             InitializeComponent();
@@ -76,9 +76,7 @@ namespace WpfApp1.Pages
                 MessageBox.Show("Пожалуйста, введите корректное время приготовления.");
                 return;
             }
-
             recipe.CookingTime = cookingTime.ToString();
-
             if (recipe.RecipeID == 0)
             {
                 AppConnect.model01.Recipes.Add(recipe);
@@ -87,8 +85,8 @@ namespace WpfApp1.Pages
             {
                 AppConnect.model01.Entry(recipe).State = EntityState.Modified;
             }
-
             AppConnect.model01.SaveChanges();
+            RecipeUpdated?.Invoke();
             NavigationService.GoBack();
         }
 

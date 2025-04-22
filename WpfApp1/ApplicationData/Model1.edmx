@@ -470,7 +470,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="RecipeBookEntities2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="RecipeBookEntities3" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Authors" EntityType="Self.Authors" />
           <EntitySet Name="Categories" EntityType="Self.Categories" />
           <EntitySet Name="CookingSteps" EntityType="Self.CookingSteps" />
@@ -523,7 +523,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище RecipeBookModelContainer" CdmEntityContainer="RecipeBookEntities2">
+        <EntityContainerMapping StorageEntityContainer="Хранилище RecipeBookModelContainer" CdmEntityContainer="RecipeBookEntities3">
           <EntitySetMapping Name="Authors">
             <EntityTypeMapping TypeName="RecipeBookModel.Authors">
               <MappingFragment StoreEntitySet="Authors">
