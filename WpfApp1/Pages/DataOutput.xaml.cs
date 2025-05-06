@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,9 +44,10 @@ namespace WpfApp1.Pages
         }
         private void listProducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (listProducts.SelectedItem is Recipes recipe)
+            selectedRecipe = listProducts.SelectedItem as Recipes;
+            if (selectedRecipe != null)
             {
-                selectedRecipe = recipe;
+                Debug.WriteLine($"Выбран рецепт: {selectedRecipe.RecipeName}");
             }
         }
         private void ComboFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -131,6 +133,53 @@ namespace WpfApp1.Pages
         private void UpdateFoundCount(int count)
         {
             TextFoundCount.Text = $"Найдено: {count}";
+        }
+        private void AddToFavoritesButton_Click(object sender, RoutedEventArgs e)
+        {
+            selectedRecipe = listProducts.SelectedItem as Recipes;
+
+            if (selectedRecipe == null)
+            {
+                MessageBox.Show("Выберите рецепт!");
+                return;
+            }
+
+            try
+            {
+                if (!selectedRecipe.AuthorID.HasValue)
+                {
+                    MessageBox.Show("У рецепта не указан автор!");
+                    return;
+                }
+                int recipeAuthorId = selectedRecipe.AuthorID.Value;
+
+                var existingLike = AppConnect.model01.LikeRecipes
+                    .FirstOrDefault(l => l.AuthorID == recipeAuthorId
+                                       && l.RecipeID == selectedRecipe.RecipeID);
+                if (existingLike != null)
+                {
+                    MessageBox.Show("Этот рецепт уже в избранном!");
+                    return;
+                }
+                var newLike = new LikeRecipes
+                {
+                    AuthorID = recipeAuthorId,
+                    RecipeID = selectedRecipe.RecipeID
+                };
+                AppConnect.model01.LikeRecipes.Add(newLike);
+                AppConnect.model01.SaveChanges();
+                MessageBox.Show("Рецепт добавлен в избранное!");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"ERROR: {ex}\n{ex.StackTrace}");
+                MessageBox.Show($"Ошибка: {ex.Message}");
+            }
+        }
+        private void ViewFavoritesButton_Click(object sender, RoutedEventArgs e)
+        {
+            var favoritesPage = new PageLike();
+            NavigationService.Navigate(favoritesPage);
         }
     }
 }

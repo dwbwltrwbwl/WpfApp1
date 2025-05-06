@@ -34,6 +34,8 @@ namespace WpfApp1.ApplicationData
         public virtual DbSet<Recipes> Recipes { get; set; }
         public virtual DbSet<RecipeTags> RecipeTags { get; set; }
         public virtual DbSet<Reviews> Reviews { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Tags> Tags { get; set; }
+        public virtual DbSet<LikeRecipes> LikeRecipes { get; set; }
     }
 }

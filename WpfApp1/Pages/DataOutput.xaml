@@ -71,6 +71,7 @@
                             <Run Text="{Binding CookingTime}"/>
                                 </TextBlock>
                                 <Button Content="Редактировать" Width="120" Height="20" Click="EditButton_Click" ToolTip="Редактировать рецепт" HorizontalAlignment="Left"/>
+                                <Button Content="В избранное" Width="120" Height="20" Click="AddToFavoritesButton_Click" ToolTip="Добавить в избранное" HorizontalAlignment="Left"/>
                             </StackPanel>
                         </Grid>
                     </WrapPanel>
@@ -84,6 +85,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Button Content="Добавить рецепт" Width="120" Height="20" Click="AddButton_Click" ToolTip="Добавить рецепт" Grid.Column="0" HorizontalAlignment="Left"/>
+            <Button Content="Просмотр избранного" Width="150" Height="20" Click="ViewFavoritesButton_Click" ToolTip="Перейти к избранным рецептам" Grid.Column="1" HorizontalAlignment="Left" Margin="18,0,0,0"/>
             <TextBlock x:Name="TextFoundCount" Text="Найдено: 0" Margin="10,0,0,0" VerticalAlignment="Center" Grid.Column="2"/>
         </Grid>
     </Grid>

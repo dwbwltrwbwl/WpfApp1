@@ -87,6 +87,9 @@
     <Compile Include="ApplicationData\Ingredients.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="ApplicationData\LikeRecipes.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="ApplicationData\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -117,6 +120,9 @@
     <Compile Include="ApplicationData\Reviews.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="ApplicationData\sysdiagrams.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="ApplicationData\Tags.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -136,6 +142,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\PageLike.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Registration.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -150,6 +160,9 @@
     </Compile>
     <Compile Include="Pages\EditRecipe.xaml.cs">
       <DependentUpon>EditRecipe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PageLike.xaml.cs">
+      <DependentUpon>PageLike.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Registration.xaml.cs">
       <DependentUpon>Registration.xaml</DependentUpon>
@@ -203,6 +216,7 @@
     <Resource Include="Images\soup.jpg" />
     <Resource Include="Images\lemonade2.jpg" />
     <Resource Include="Images\dumplings.jpg" />
+    <Resource Include="Images\blini.jpg" />
     <Content Include="ApplicationData\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -213,7 +227,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Resource Include="Images\blini.jpg" />
     <Content Include="Images\tea.jpg" />
   </ItemGroup>
   <ItemGroup />

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1.ApplicationData;
 
 namespace WpfApp1.Pages
 {
@@ -33,6 +34,7 @@ namespace WpfApp1.Pages
                 }
                 else
                 {
+                    AppConnect.AuthorID = userObj.AuthorID;
                     MessageBox.Show("Здравствуйте", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                     NavigationService.Navigate(new DataOutput());
                 }

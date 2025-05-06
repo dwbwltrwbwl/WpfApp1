@@ -22,6 +22,7 @@ namespace WpfApp1.ApplicationData
             this.RecipeIngredients = new HashSet<RecipeIngredients>();
             this.RecipeTags = new HashSet<RecipeTags>();
             this.Reviews = new HashSet<Reviews>();
+            this.LikeRecipes = new HashSet<LikeRecipes>();
         }
         public string CurrentPhoto
         {
@@ -53,5 +54,7 @@ namespace WpfApp1.ApplicationData
         public virtual ICollection<RecipeTags> RecipeTags { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reviews> Reviews { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LikeRecipes> LikeRecipes { get; set; }
     }
 }
