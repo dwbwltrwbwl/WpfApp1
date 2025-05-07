@@ -63,9 +63,9 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <!--<Button Content="Обновить список" Width="120" Height="20" Click="UpdateButton_Click" ToolTip="Обновить список избранных рецептов" Grid.Column="0" HorizontalAlignment="Left"/>-->
             <TextBlock x:Name="TextFoundCount" Text="Найдено: 0" Margin="10,0,0,0" VerticalAlignment="Center" Grid.Column="2"/>
             <Button Content="Обратно" Width="120" Height="20" Click="ExitButton_Click" ToolTip="Добавить рецепт" HorizontalAlignment="Center"/>
+            <Button Content="Создать Word-документ" Width="152" Height="20" Click="btnWord_Click" ToolTip="Добавить рецепт" HorizontalAlignment="Left" Grid.Column="1" Margin="10,0,0,0"/>
         </Grid>
     </Grid>
 </Page>

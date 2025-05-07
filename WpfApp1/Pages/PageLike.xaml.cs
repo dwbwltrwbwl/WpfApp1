@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Word = Microsoft.Office.Interop.Word;
 using WpfApp1.ApplicationData;
 
 namespace WpfApp1.Pages
@@ -51,6 +52,64 @@ namespace WpfApp1.Pages
                 UpdateLikeRecipes();
                 MessageBox.Show("Рецепт удален из избранного!");
             }
+        }
+
+        private void btnWord_Click(object sender, RoutedEventArgs e)
+        {
+            string templatePath = @"C:\Users\10220448\Source\Repos\WpfApp1\WpfApp1\RecipeTemplate32.docx";
+            string outputPath = @"C:\Users\10220448\Source\Repos\WpfApp1\WpfApp1\Recipe1.docx";
+            Word.Application wordApp = new Word.Application();
+            Word.Document wordDoc = wordApp.Documents.Open(templatePath);
+            Word.Document newDocument = wordApp.Documents.Add();
+
+            foreach (var rec in recipes)
+            {
+                Word.Range range = wordDoc.Content;
+                range.Copy();
+                Word.Range newRange = newDocument.Content;
+                newRange.Collapse(Word.WdCollapseDirection.wdCollapseEnd);
+                newRange.Paste();
+                Word.Find findObject = newDocument.Content.Find;
+                findObject.ClearFormatting();
+                findObject.Text = "{{NameRecipes}}";
+                findObject.Replacement.ClearFormatting();
+                findObject.Replacement.Text = rec.RecipeName;
+                findObject.Execute(Replace: Word.WdReplace.wdReplaceAll);
+
+                Word.Range bookmarkRange = newDocument.Bookmarks["ResepisImages"].Range;
+                bookmarkRange.Delete();
+
+                var photoPath = @"C:\Users\10220448\Source\Repos\WpfApp1\WpfApp1\" + rec.CurrentPhoto.Substring(1);
+                Word.InlineShape newInlineShape = bookmarkRange.InlineShapes.AddPicture(photoPath, false, true);
+                //newInlineShape.Width = 210;
+                //newInlineShape.Height = 210;
+
+                findObject.Text = "{AuthorRecipes}";
+                findObject.Replacement.ClearFormatting();
+                findObject.Replacement.Text = rec.Authors.AuthorName;
+                findObject.Execute(Replace: Word.WdReplace.wdReplaceAll);
+
+                findObject.Text = "{{Category}}";
+                findObject.Replacement.ClearFormatting();
+                findObject.Replacement.Text = rec.Categories.CategoryName;
+                findObject.Execute(Replace: Word.WdReplace.wdReplaceAll);
+
+                findObject.Text = "{{Description}}";
+                findObject.Replacement.ClearFormatting();
+                findObject.Replacement.Text = rec.DescriptionN;
+                findObject.Execute(Replace: Word.WdReplace.wdReplaceAll);
+
+                newRange.Collapse(Word.WdCollapseDirection.wdCollapseEnd);
+                newRange.InsertBreak(Word.WdBreakType.wdPageBreak);
+            }
+            newDocument.SaveAs2(outputPath);
+            newDocument.Close();
+            wordDoc.Close();
+            wordApp.Quit();
+
+            MessageBox.Show("Документ успешно создан!");
+            // Переход на страницу с QR-кодом
+            NavigationService.Navigate(new PageQRCode());
         }
     }
 }
