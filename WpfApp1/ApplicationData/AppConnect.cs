@@ -8,7 +8,7 @@ namespace WpfApp1.ApplicationData
 {
     internal class AppConnect
     {
-        public static int AuthorID { get; set; }
+        public static int AuthorID;
         public static RecipeBookEntities3 model01;
     }
 }

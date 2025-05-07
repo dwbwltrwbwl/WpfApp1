@@ -18,11 +18,11 @@ namespace WpfApp1.ApplicationData
         public Recipes()
         {
             this.CookingSteps = new HashSet<CookingSteps>();
+            this.LikeRecipes = new HashSet<LikeRecipes>();
             this.RecipeImages = new HashSet<RecipeImages>();
             this.RecipeIngredients = new HashSet<RecipeIngredients>();
             this.RecipeTags = new HashSet<RecipeTags>();
             this.Reviews = new HashSet<Reviews>();
-            this.LikeRecipes = new HashSet<LikeRecipes>();
         }
         public string CurrentPhoto
         {
@@ -47,6 +47,8 @@ namespace WpfApp1.ApplicationData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CookingSteps> CookingSteps { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LikeRecipes> LikeRecipes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RecipeImages> RecipeImages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RecipeIngredients> RecipeIngredients { get; set; }
@@ -54,7 +56,5 @@ namespace WpfApp1.ApplicationData
         public virtual ICollection<RecipeTags> RecipeTags { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reviews> Reviews { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LikeRecipes> LikeRecipes { get; set; }
     }
 }

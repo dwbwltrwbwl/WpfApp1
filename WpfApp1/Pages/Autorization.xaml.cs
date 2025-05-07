@@ -34,8 +34,8 @@ namespace WpfApp1.Pages
                 }
                 else
                 {
-                    AppConnect.AuthorID = userObj.AuthorID;
                     MessageBox.Show("Здравствуйте", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                    AppConnect.AuthorID = userObj.AuthorID;
                     NavigationService.Navigate(new DataOutput());
                 }
             }

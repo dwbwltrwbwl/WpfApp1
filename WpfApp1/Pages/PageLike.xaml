@@ -9,7 +9,7 @@
       Title="PageLike">
 
     <Grid>
-        <!--<Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -28,7 +28,7 @@
                                 <ColumnDefinition Width="500"/>
                                 <ColumnDefinition Width="200"/>
                             </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0" Source="{Binding CurrentPhoto}" Width="100" Height="100" Stretch="UniformToFill"/>
+                            <Image Grid.Column="0" Source="{Binding CurrentPhoto}"></Image>
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="5" Grid.Column="1">
                                 <TextBlock Width="auto" TextWrapping="Wrap" Height="auto" Text="{Binding RecipeName}" FontWeight="Bold" FontSize="16" Foreground="#FF0027FF"/>
                                 <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
@@ -63,8 +63,9 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button Content="Обновить список" Width="120" Height="20" Click="UpdateButton_Click" ToolTip="Обновить список избранных рецептов" Grid.Column="0" HorizontalAlignment="Left"/>
+            <!--<Button Content="Обновить список" Width="120" Height="20" Click="UpdateButton_Click" ToolTip="Обновить список избранных рецептов" Grid.Column="0" HorizontalAlignment="Left"/>-->
             <TextBlock x:Name="TextFoundCount" Text="Найдено: 0" Margin="10,0,0,0" VerticalAlignment="Center" Grid.Column="2"/>
-        </Grid>-->
+            <Button Content="Обратно" Width="120" Height="20" Click="ExitButton_Click" ToolTip="Добавить рецепт" HorizontalAlignment="Center"/>
+        </Grid>
     </Grid>
 </Page>

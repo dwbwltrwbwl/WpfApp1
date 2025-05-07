@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище RecipeBookModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище RecipeBookModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Authors">
           <Key>
             <PropertyRef Name="AuthorID" />
@@ -302,7 +302,8 @@
             <End Role="Reviews" EntitySet="Reviews" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RecipeBookModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -318,8 +319,8 @@
           <Property Name="Experience" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LikeRecipes" Relationship="Self.FK_LikeRecipes_Authors1" FromRole="Authors" ToRole="LikeRecipes" />
           <NavigationProperty Name="Recipes" Relationship="Self.FK_Recipes_Authors" FromRole="Authors" ToRole="Recipes" />
-          <NavigationProperty Name="LikeRecipes" Relationship="RecipeBookModel.FK_LikeRecipes_Authors" FromRole="Authors" ToRole="LikeRecipes" />
         </EntityType>
         <EntityType Name="Categories">
           <Key>
@@ -346,6 +347,16 @@
           <Property Name="IngredientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IngredientName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="RecipeIngredients" Relationship="Self.FK_RecipeIngredients_Ingredients" FromRole="Ingredients" ToRole="RecipeIngredients" />
+        </EntityType>
+        <EntityType Name="LikeRecipes">
+          <Key>
+            <PropertyRef Name="idLikeRecipe" />
+          </Key>
+          <Property Name="idLikeRecipe" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AuthorID" Type="Int32" />
+          <Property Name="RecipeID" Type="Int32" />
+          <NavigationProperty Name="Authors" Relationship="Self.FK_LikeRecipes_Authors1" FromRole="LikeRecipes" ToRole="Authors" />
+          <NavigationProperty Name="Recipes" Relationship="Self.FK_LikeRecipes_Recipes1" FromRole="LikeRecipes" ToRole="Recipes" />
         </EntityType>
         <EntityType Name="RecipeImages">
           <Key>
@@ -381,11 +392,11 @@
           <NavigationProperty Name="Authors" Relationship="Self.FK_Recipes_Authors" FromRole="Recipes" ToRole="Authors" />
           <NavigationProperty Name="Categories" Relationship="Self.FK_Recipes_Categories" FromRole="Recipes" ToRole="Categories" />
           <NavigationProperty Name="CookingSteps" Relationship="Self.FK_CookingSteps_Recipes" FromRole="Recipes" ToRole="CookingSteps" />
+          <NavigationProperty Name="LikeRecipes" Relationship="Self.FK_LikeRecipes_Recipes1" FromRole="Recipes" ToRole="LikeRecipes" />
           <NavigationProperty Name="RecipeImages" Relationship="Self.FK_RecipeImages_Recipes" FromRole="Recipes" ToRole="RecipeImages" />
           <NavigationProperty Name="RecipeIngredients" Relationship="Self.FK_RecipeIngredients_Recipes" FromRole="Recipes" ToRole="RecipeIngredients" />
           <NavigationProperty Name="RecipeTags" Relationship="Self.FK_RecipeTags_Recipes" FromRole="Recipes" ToRole="RecipeTags" />
           <NavigationProperty Name="Reviews" Relationship="Self.FK_Reviews_Recipes" FromRole="Recipes" ToRole="Reviews" />
-          <NavigationProperty Name="LikeRecipes" Relationship="RecipeBookModel.FK_LikeRecipes_Recipes" FromRole="Recipes" ToRole="LikeRecipes" />
         </EntityType>
         <EntityType Name="RecipeTags">
           <Key>
@@ -425,6 +436,18 @@
           <Property Name="TagName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="RecipeTags" Relationship="Self.FK_RecipeTags_Tags" FromRole="Tags" ToRole="RecipeTags" />
         </EntityType>
+        <Association Name="FK_LikeRecipes_Authors1">
+          <End Role="Authors" Type="Self.Authors" Multiplicity="0..1" />
+          <End Role="LikeRecipes" Type="Self.LikeRecipes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authors">
+              <PropertyRef Name="AuthorID" />
+            </Principal>
+            <Dependent Role="LikeRecipes">
+              <PropertyRef Name="AuthorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Recipes_Authors">
           <End Role="Authors" Type="Self.Authors" Multiplicity="0..1" />
           <End Role="Recipes" Type="Self.Recipes" Multiplicity="*" />
@@ -470,6 +493,18 @@
             </Principal>
             <Dependent Role="RecipeIngredients">
               <PropertyRef Name="IngredientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LikeRecipes_Recipes1">
+          <End Role="Recipes" Type="Self.Recipes" Multiplicity="0..1" />
+          <End Role="LikeRecipes" Type="Self.LikeRecipes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipes">
+              <PropertyRef Name="RecipeID" />
+            </Principal>
+            <Dependent Role="LikeRecipes">
+              <PropertyRef Name="RecipeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -538,6 +573,7 @@
           <EntitySet Name="Categories" EntityType="Self.Categories" />
           <EntitySet Name="CookingSteps" EntityType="Self.CookingSteps" />
           <EntitySet Name="Ingredients" EntityType="Self.Ingredients" />
+          <EntitySet Name="LikeRecipes" EntityType="Self.LikeRecipes" />
           <EntitySet Name="RecipeImages" EntityType="Self.RecipeImages" />
           <EntitySet Name="RecipeIngredients" EntityType="Self.RecipeIngredients" />
           <EntitySet Name="Recipes" EntityType="Self.Recipes" />
@@ -545,6 +581,10 @@
           <EntitySet Name="Reviews" EntityType="Self.Reviews" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Tags" EntityType="Self.Tags" />
+          <AssociationSet Name="FK_LikeRecipes_Authors1" Association="Self.FK_LikeRecipes_Authors1">
+            <End Role="Authors" EntitySet="Authors" />
+            <End Role="LikeRecipes" EntitySet="LikeRecipes" />
+          </AssociationSet>
           <AssociationSet Name="FK_Recipes_Authors" Association="Self.FK_Recipes_Authors">
             <End Role="Authors" EntitySet="Authors" />
             <End Role="Recipes" EntitySet="Recipes" />
@@ -560,6 +600,10 @@
           <AssociationSet Name="FK_RecipeIngredients_Ingredients" Association="Self.FK_RecipeIngredients_Ingredients">
             <End Role="Ingredients" EntitySet="Ingredients" />
             <End Role="RecipeIngredients" EntitySet="RecipeIngredients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LikeRecipes_Recipes1" Association="Self.FK_LikeRecipes_Recipes1">
+            <End Role="Recipes" EntitySet="Recipes" />
+            <End Role="LikeRecipes" EntitySet="LikeRecipes" />
           </AssociationSet>
           <AssociationSet Name="FK_RecipeImages_Recipes" Association="Self.FK_RecipeImages_Recipes">
             <End Role="Recipes" EntitySet="Recipes" />
@@ -581,50 +625,7 @@
             <End Role="Tags" EntitySet="Tags" />
             <End Role="RecipeTags" EntitySet="RecipeTags" />
           </AssociationSet>
-          <EntitySet Name="LikeRecipes" EntityType="RecipeBookModel.LikeRecipes" />
-          <AssociationSet Name="FK_LikeRecipes_Authors" Association="RecipeBookModel.FK_LikeRecipes_Authors">
-            <End Role="Authors" EntitySet="Authors" />
-            <End Role="LikeRecipes" EntitySet="LikeRecipes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LikeRecipes_Recipes" Association="RecipeBookModel.FK_LikeRecipes_Recipes">
-            <End Role="Recipes" EntitySet="Recipes" />
-            <End Role="LikeRecipes" EntitySet="LikeRecipes" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="LikeRecipes">
-          <Key>
-            <PropertyRef Name="idLikeRecipe" />
-          </Key>
-          <Property Name="idLikeRecipe" Type="Int32" Nullable="false" />
-          <Property Name="AuthorID" Type="Int32" />
-          <Property Name="RecipeID" Type="Int32" />
-          <NavigationProperty Name="Authors" Relationship="RecipeBookModel.FK_LikeRecipes_Authors" FromRole="LikeRecipes" ToRole="Authors" />
-          <NavigationProperty Name="Recipes" Relationship="RecipeBookModel.FK_LikeRecipes_Recipes" FromRole="LikeRecipes" ToRole="Recipes" />
-        </EntityType>
-        <Association Name="FK_LikeRecipes_Authors">
-          <End Type="RecipeBookModel.Authors" Role="Authors" Multiplicity="0..1" />
-          <End Type="RecipeBookModel.LikeRecipes" Role="LikeRecipes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Authors">
-              <PropertyRef Name="AuthorID" />
-            </Principal>
-            <Dependent Role="LikeRecipes">
-              <PropertyRef Name="AuthorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LikeRecipes_Recipes">
-          <End Type="RecipeBookModel.Recipes" Role="Recipes" Multiplicity="0..1" />
-          <End Type="RecipeBookModel.LikeRecipes" Role="LikeRecipes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Recipes">
-              <PropertyRef Name="RecipeID" />
-            </Principal>
-            <Dependent Role="LikeRecipes">
-              <PropertyRef Name="RecipeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -668,6 +669,15 @@
               <MappingFragment StoreEntitySet="Ingredients">
                 <ScalarProperty Name="IngredientID" ColumnName="IngredientID" />
                 <ScalarProperty Name="IngredientName" ColumnName="IngredientName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LikeRecipes">
+            <EntityTypeMapping TypeName="RecipeBookModel.LikeRecipes">
+              <MappingFragment StoreEntitySet="LikeRecipes">
+                <ScalarProperty Name="idLikeRecipe" ColumnName="idLikeRecipe" />
+                <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+                <ScalarProperty Name="RecipeID" ColumnName="RecipeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -738,15 +748,6 @@
               <MappingFragment StoreEntitySet="Tags">
                 <ScalarProperty Name="TagID" ColumnName="TagID" />
                 <ScalarProperty Name="TagName" ColumnName="TagName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="LikeRecipes">
-            <EntityTypeMapping TypeName="RecipeBookModel.LikeRecipes">
-              <MappingFragment StoreEntitySet="LikeRecipes">
-                <ScalarProperty Name="RecipeID" ColumnName="RecipeID" />
-                <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
-                <ScalarProperty Name="idLikeRecipe" ColumnName="idLikeRecipe" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

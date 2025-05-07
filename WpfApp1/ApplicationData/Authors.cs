@@ -17,8 +17,8 @@ namespace WpfApp1.ApplicationData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Authors()
         {
-            this.Recipes = new HashSet<Recipes>();
             this.LikeRecipes = new HashSet<LikeRecipes>();
+            this.Recipes = new HashSet<Recipes>();
         }
     
         public int AuthorID { get; set; }
@@ -31,8 +31,8 @@ namespace WpfApp1.ApplicationData
         public string Telephone { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Recipes> Recipes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LikeRecipes> LikeRecipes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Recipes> Recipes { get; set; }
     }
 }

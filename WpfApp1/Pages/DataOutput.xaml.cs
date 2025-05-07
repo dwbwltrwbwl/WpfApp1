@@ -146,26 +146,23 @@ namespace WpfApp1.Pages
 
             try
             {
-                if (!selectedRecipe.AuthorID.HasValue)
-                {
-                    MessageBox.Show("У рецепта не указан автор!");
-                    return;
-                }
-                int recipeAuthorId = selectedRecipe.AuthorID.Value;
+                int currentUserId = AppConnect.AuthorID;
 
                 var existingLike = AppConnect.model01.LikeRecipes
-                    .FirstOrDefault(l => l.AuthorID == recipeAuthorId
+                    .FirstOrDefault(l => l.AuthorID == currentUserId
                                        && l.RecipeID == selectedRecipe.RecipeID);
                 if (existingLike != null)
                 {
                     MessageBox.Show("Этот рецепт уже в избранном!");
                     return;
                 }
+
                 var newLike = new LikeRecipes
                 {
-                    AuthorID = recipeAuthorId,
+                    AuthorID = currentUserId,
                     RecipeID = selectedRecipe.RecipeID
                 };
+
                 AppConnect.model01.LikeRecipes.Add(newLike);
                 AppConnect.model01.SaveChanges();
                 MessageBox.Show("Рецепт добавлен в избранное!");

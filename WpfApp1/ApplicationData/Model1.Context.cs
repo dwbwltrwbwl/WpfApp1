@@ -29,6 +29,7 @@ namespace WpfApp1.ApplicationData
         public virtual DbSet<Categories> Categories { get; set; }
         public virtual DbSet<CookingSteps> CookingSteps { get; set; }
         public virtual DbSet<Ingredients> Ingredients { get; set; }
+        public virtual DbSet<LikeRecipes> LikeRecipes { get; set; }
         public virtual DbSet<RecipeImages> RecipeImages { get; set; }
         public virtual DbSet<RecipeIngredients> RecipeIngredients { get; set; }
         public virtual DbSet<Recipes> Recipes { get; set; }
@@ -36,6 +37,5 @@ namespace WpfApp1.ApplicationData
         public virtual DbSet<Reviews> Reviews { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Tags> Tags { get; set; }
-        public virtual DbSet<LikeRecipes> LikeRecipes { get; set; }
     }
 }
